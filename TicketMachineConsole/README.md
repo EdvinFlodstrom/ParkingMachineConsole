@@ -13,3 +13,9 @@ It didn't take too long to fix what I had done incorrectly, and a major fix in t
 the days, hours, and minutes, as follows: `ticketTimeSpan.Days`. I had tried to get these values from the TimeSpan by converting it
 to a string and using Split(), but when some values such as hours were set to 0, the values would disappear and the tests would fail.
 Using TimeSpan's properties (as intended) fixed this problem. And after a final quick fix, part 3 was done.
+
+#### 4102 Unit Test ParkingMachine - Part 4
+A while later, I have now finished part 4 as well. This part included creating a new class, Ticket, and changing the class 
+ParkingMachine. To my surprise, I got it working on my first try. I almost thought the tests weren't working, but it looks like
+I simply got everything working right away. The most complicated part was knowing how to change the methods I was to move
+to Ticket, but it worked rather well, I think.

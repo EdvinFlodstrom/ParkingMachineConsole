@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParkingMachineConsoleTicket;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -53,22 +54,15 @@ namespace ParkingMachineConsole
             }
         }
 
-        public string BuyTicket()
+        public Ticket BuyTicket()
         {
             total += currentTotal;
 
-            TimeSpan ticketTimeSpan = GetParkingTimeSpan();
-
-            DateTime validToTime = DateTime.Now;
-            validToTime = validToTime.Add(ticketTimeSpan);
+            Ticket ticket = new Ticket(currentTotal, CostPerHour);
+            
             currentTotal = 0;
 
-            return "Parking ticket valid for:" + Environment.NewLine +
-                ticketTimeSpan.Days + " days" + Environment.NewLine +
-                ticketTimeSpan.Hours + " hours" + Environment.NewLine +
-                ticketTimeSpan.Minutes + " minutes" + Environment.NewLine +
-                Environment.NewLine +
-                "Valid to: " + validToTime.ToString();
+            return ticket;
         }
 
         public int Cancel()
@@ -78,16 +72,16 @@ namespace ParkingMachineConsole
             return currentRefund;
         }
         public DateTime GetValidTo()
-        {            
-            return DateTime.Now.Add(GetParkingTimeSpan());
+        {
+            Ticket ticket = new Ticket(currentTotal, CostPerHour);
+
+            return ticket.GetValidTo();
         }
         public TimeSpan GetParkingTimeSpan()
         {
-            int days = (int)MathF.Round(currentTotal / (costPerHour * 24));
-            int hours = (currentTotal % (costPerHour * 24)) / costPerHour;
-            int minutes = ((currentTotal % (costPerHour * 24)) % costPerHour) * (60/costPerHour);
-
-            return new TimeSpan(days, hours, minutes, 0);
+            Ticket ticket = new Ticket(currentTotal, costPerHour);
+          
+            return ticket.GetValidTimeSpan();
         }
         public void InsertMoney(int v)
         {
@@ -95,13 +89,6 @@ namespace ParkingMachineConsole
             {
                 currentTotal += v;
             }            
-        }
-        private string TimeToTicketText(int days, int hours, int minutes)
-        {
-            return "Parking ticket valid for:" + Environment.NewLine +
-                days + " days" + Environment.NewLine +
-                hours + " hours" + Environment.NewLine +
-                minutes + " minutes";
         }
     }
 }
